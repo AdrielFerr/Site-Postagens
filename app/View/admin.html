@@ -1,0 +1,137 @@
+<h1>Gerenciador de conteúdo</h1>
+<br>
+<style>
+
+
+    @keyframes glowing-pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(12, 1, 1, 0.7);
+        }
+
+        70% {
+            box-shadow: 0 0 0 30px rgba(255, 255, 255, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+        }
+    }
+
+    .buttonazul {
+    border: 2px solid #24b4fb;
+    background-color: #24b4fb;
+    border-radius: 0.9em;
+    padding: 0.8em 1.2em 0.8em 1em;
+    transition: all ease-in-out 0.2s;
+    font-size: 16px;
+    cursor: pointer;
+    animation: glowing-pulse 2s infinite;
+   }
+   
+   button span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+   }
+   
+   button:hover {
+    background-color: #0071e2;
+   }
+
+   
+.buttonExcluir {
+  font-size: 11px;
+  font-family:Arial;
+  width:56px;
+  height:28px;
+  border-width:1px;
+  color:#ffffff;
+  border-color:#d83526;
+  font-weight:bold;
+  border-top-left-radius:6px;
+  border-top-right-radius:6px;
+  border-bottom-left-radius:6px;
+  border-bottom-right-radius:6px;
+  box-shadow:inset 0px 1px 0px 0px #f29c93;
+  text-shadow:inset 0px 1px 0px #b23e35;
+  background:linear-gradient(#fe1a00, #ce0100);
+  cursor: pointer;
+}
+
+.buttonExcluir:hover {
+  background: linear-gradient(#ce0100, #fe1a00);
+}
+
+
+.buttonAlterar {
+  font-size:11px;
+  font-family:Arial;
+  width:56px;
+  height:28px;
+  border-width:1px;
+  color:#ffffff;
+  border-color:rgba(241, 226, 226, 1);
+  font-weight:bold;
+  border-top-left-radius:6px;
+  border-top-right-radius:6px;
+  border-bottom-left-radius:6px;
+  border-bottom-right-radius:6px;
+  box-shadow:inset 0px 1px 0px 0px #f29c93;
+  text-shadow:inset 0px 1px 0px #b23e35;
+  background:linear-gradient(rgba(24, 27, 155, 1), rgba(63, 35, 35, 1));
+  cursor: pointer;
+}
+
+.buttonAlterar:hover {
+  background: linear-gradient(rgba(63, 35, 35, 1), rgba(24, 27, 155, 1));
+}
+              
+              
+</style>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+
+
+<button  class="buttonazul" onclick="window.location.href='http://localhost/SITE/index.php/?pagina=admin&metodo=create'">
+    <span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path>
+        <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path>
+    </svg> Criar Publicação
+    </span>
+</button>
+
+<br><br>
+<hr>
+<br>
+<table style="border: none;">
+	<thead>
+		<tr>
+			<th style="border: none; display: table; float:left; margin-right:7px;">ID</th>
+			<th style="border: none; display: table; float:left; margin-right:7px;">TÍTULO</th>
+			
+		</tr>
+	</thead>
+    {% for postagem in postagens %}
+	<tbody>
+		<tr>
+			<td style=" text-align: center; display: table; float:left; margin-right:15px; ">{{postagem.id}}</td>
+			<td style="border: none; text-align: center; display: table; float:left; margin-right:15px">{{postagem.titulo}}</td>
+			<td ><button class="buttonAlterar" onclick="window.location.href='http://localhost/SITE/index.php/?pagina=admin&metodo=change&id={{postagem.id}}'">Alterar</button></td>
+            <td style="text-align: center;" ><button onclick="  
+                    if(confirm('Tem certeza que deseja excluir?'))
+                    {
+                        location.href='?pagina=admin&metodo=delete&id={{postagem.id}}';
+                        return false;
+                    }else{
+                        false;
+                    }"; 
+                    class = 'buttonExcluir'>Excluir</button>
+            </td>
+		</tr>
+
+	</tbody>
+    {% endfor %}
+</table>
